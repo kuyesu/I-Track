@@ -1,0 +1,7 @@
+Django>=3.2,<3.3
+wagtail>=2.15,<2.16
+django-allauth
+django_countries
+django-recaptcha
+wagtail-django-recaptcha
+django-model-utils

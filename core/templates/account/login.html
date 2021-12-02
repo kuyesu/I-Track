@@ -1,0 +1,83 @@
+{% extends 'account/base_card.html' %}
+
+{% load i18n socialaccount %}
+{% load static %}
+
+{% block title %}{% trans "Sign in" %}{% endblock %}
+
+{% block content %}
+<section>
+  <div class="page-header min-vh-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+          <div class="card card-plain">
+            {% block card-body %}
+            <div class="card-header pb-0 text-left">
+              {% block card-header %}
+              <h4 class="font-weight-bolder">{% trans "Sign In" %}</h4>
+              <p class="mb-0">{% trans "Enter your email and password to sign in" %}</p>
+              {% endblock %}
+            </div>
+            
+            {% get_providers as socialaccount_providers %}
+            <div class="card-body">
+            <form method="POST" action="{% url 'account_login' %}" class="needs-validation" novalidate>
+              {% csrf_token %}
+              <div class="mb-3">
+                {% with field=form.login %}{% include "account/form_field.html" %}{% endwith %}
+                
+              </div>
+              <div class="mb-3">
+                {% with field=form.password %}{% include "account/form_field.html" %}{% endwith %}
+               
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
+              </div>
+              <div class="text-center">
+                <button type="submit"
+                  class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">{% trans "Sign in" %}</button>
+              </div>
+              
+            </form>
+          </div>
+            {% if socialaccount_providers %}
+            <br>
+            <p>{% blocktrans with site.name as site_name %}or sign in with one of your existing third party
+              accounts:{% endblocktrans %}</p>
+            {% include "socialaccount/provider_list.html" with process="login" %}
+            {% endif %}
+            {% endblock %}
+        {% block card-footer %}
+            <div class="card-footer text-center pt-0 px-lg-2 px-1">
+              <p class="mb-4 text-sm mx-auto">
+                {% trans "Don't have an account?" %}
+                <a href="{{ signup_url }}" class="text-primary text-gradient font-weight-bold">{% trans "Sign up" %}</a>
+              </p>
+                <p>
+                  <a class="text-muted" href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a>
+                </p>
+
+            </div>
+            
+          </div>
+        </div>
+        
+        <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+          <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
+            <img src="{% static "/assets/img/shapes/pattern-lines.svg" %}" alt="pattern-lines" class="position-absolute opacity-4 start-0">
+            <div class="position-relative">
+              <img class="max-width-500 w-100 position-relative z-index-2" src="{% static "/assets/img/illustrations/chat.png" %}" alt="image">
+            </div>
+            <h4 class="mt-5 text-white font-weight-bolder">"Attention is the new currency"</h4>
+            <p class="text-white">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+          </div>
+        </div>
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

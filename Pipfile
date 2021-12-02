@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+wagtail = "*"
+django = ">=3.0,<4.0"
+psycopg2-binary = "*"
+django-allauth = "*"
+wagtail-localize = "*"
+django-countries = "*"
+django-recaptcha = "*"
+wagtail-django-recaptcha = "*"
+django-widget-tweaks = "*"
+django-extensions = "*"
+django-model-utils = "*"
+jedi = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
